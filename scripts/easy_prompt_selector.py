@@ -29,7 +29,7 @@ prompt_map = {}
      for tag, prompt in tag_prompts.items():
         if prompt not in prompt_map:
           prompt_map[prompt] = []
-   prompt_map[prompt].append(tag)
+prompt_map[prompt].append(tag)
  
 unique_prompts = list(prompt_map.keys()) 
  
