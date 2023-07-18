@@ -14,16 +14,27 @@ BASE_DIR = Path(basedir())
 TAGS_DIR = BASE_DIR.joinpath('tags')
 
 def tag_files():
-    return TAGS_DIR.rglob("*.yml")
-
+    return [p for p in TAGS_DIR.rglob("*.yml")]
+ 
 def load_tags():
     tags = {}
     for filepath in tag_files():
         with open(filepath, "r", encoding="utf-8") as file:
-            yml = yaml.safe_load(file)
-            tags[filepath.stem] = yml
-
+       yml = yaml.safe_load(file)
+       tags[filepath.stem] = yml
     return tags
+ 
+prompt_map = {}
+   for filename, tag_prompts in tags.items():
+     for tag, prompt in tag_prompts.items():
+        if prompt not in prompt_map:
+          prompt_map[prompt] = []
+   prompt_map[prompt].append(tag)
+ 
+unique_prompts = list(prompt_map.keys()) 
+ 
+prompt = unique_prompts[prompt_map[tag][0]]
+
 
 def find_tag(tags, location):
     if type(location) == str:
