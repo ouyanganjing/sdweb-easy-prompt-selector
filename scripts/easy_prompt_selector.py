@@ -25,10 +25,16 @@ def load_tags():
 
     return tags
 
+
+replaced_prompts = {}
+
+ 
 def find_tag(tags, location):
     if type(location) == str:
-        return tags[location]
-
+      prompt = location
+      if prompt not in replaced_prompts:
+        replaced_prompts[prompt] = tags[prompt] 
+        return tags[prompt]
     value = ''
     if len(location) > 0:
         value = tags
